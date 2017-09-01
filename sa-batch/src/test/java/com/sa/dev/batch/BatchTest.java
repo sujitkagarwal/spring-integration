@@ -46,6 +46,7 @@ public class BatchTest {
             System.out.println(job1.getName());
             jobLauncher.run(job, jobParameter);
             jobLauncher.run(job1, jobParameter);
+
         } catch (JobExecutionAlreadyRunningException e) {
             e.printStackTrace();
         } catch (JobRestartException e) {
