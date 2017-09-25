@@ -7,9 +7,10 @@ import com.sa.dev.micro.security.authentication.model.JwtAuthenticationToken;
 import com.sa.dev.micro.security.authentication.model.JwtUser;
 import com.sa.dev.micro.security.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @author pascal alma
  */
 @Component
-public class JwtAuthenticationProvider implements AuthenticationProvider {
+public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
       @Autowired
       private JwtTokenUtil jwtTokenUtil;
@@ -29,7 +30,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     }
 
 
-    @Override
+   /* @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
         String token = jwtAuthenticationToken.getToken();
@@ -42,12 +43,12 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         jwtAuthenticationToken.setAuthenticated(true);
         return jwtAuthenticationToken;
     }
-
-    /* @Override
+*/
+     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-    }*/
+    }
 
-  /*  @Override
+    @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
         String token = jwtAuthenticationToken.getToken();
@@ -58,6 +59,6 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             throw new JwtTokenMalformedException(e.getMessage());
         }
         return parsedUser;
-    }*/
+    }
 
 }

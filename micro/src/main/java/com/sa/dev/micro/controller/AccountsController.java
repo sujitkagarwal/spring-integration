@@ -6,6 +6,7 @@ import com.sa.dev.micro.exceptions.AccountNotFoundException;
 import com.sa.dev.micro.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class AccountsController {
      * @throws com.sa.dev.micro.exceptions.AccountNotFoundException If the number is not recognised.
      */
     @GetMapping("/accounts/account/{accountNumber}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Account byAccountNumber(@PathVariable("accountNumber") String accountNumber) {
         log.info("accounts-service byNumber() invoked: " + accountNumber);
         Account account = accountService.findByAccountNumber(accountNumber);
@@ -61,7 +63,7 @@ public class AccountsController {
         List<Account> accounts = accountService.findAll();
         log.info("accounts-service byOwner() found: " + accounts);
         if (accounts == null || accounts.size() == 0)
-            throw new AccountNotFoundException("");
+            throw new AccountNotFoundException("account not found");
         else {
             return accounts;
         }

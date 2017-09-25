@@ -1,8 +1,6 @@
 package com.sa.dev.micro.security.authentication.model;
 
-
-import org.springframework.security.authentication.AbstractAuthenticationToken;
-
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 /**
  * Holder for JWT token from the request.
@@ -11,12 +9,12 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
  *
  * @author sujit agarwal
  */
-public class JwtAuthenticationToken extends AbstractAuthenticationToken {
+public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken {
 
     private String token;
 
     public JwtAuthenticationToken(String token) {
-        super(null);
+        super(null,null);
         this.token = token;
     }
 
