@@ -19,8 +19,6 @@ import com.sa.dev.batch.token.OverstaptabelRecordTokenizer;
 import com.sa.dev.batch.token.OverstaptabelTrailerTokenizer;
 import com.sa.dev.batch.writer.OverstaptabelItemWriter;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -60,7 +58,6 @@ import java.util.Map;
 @EnableBatchProcessing
 @Slf4j
 public class BatchConfiguration {
-    private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
 
     @Autowired
     ResourcePatternResolver resoursePatternResolver;

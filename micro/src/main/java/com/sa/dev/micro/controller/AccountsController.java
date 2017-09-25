@@ -4,11 +4,12 @@ package com.sa.dev.micro.controller;
 import com.sa.dev.micro.entity.Account;
 import com.sa.dev.micro.exceptions.AccountNotFoundException;
 import com.sa.dev.micro.service.AccountService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 
 /**
  * A RESTFul controller for accessing account information.
@@ -16,14 +17,11 @@ import java.util.logging.Logger;
  * @author Paul Chapman
  */
 @RestController
+@Slf4j
 public class AccountsController {
-
-    protected Logger logger = Logger.getLogger(AccountsController.class
-            .getName());
 
     @Autowired
     protected AccountService accountService;
-
 
     /**
      * Fetch an account with the specified account number.n
@@ -34,9 +32,9 @@ public class AccountsController {
      */
     @GetMapping("/accounts/account/{accountNumber}")
     public Account byAccountNumber(@PathVariable("accountNumber") String accountNumber) {
-        logger.info("accounts-service byNumber() invoked: " + accountNumber);
+        log.info("accounts-service byNumber() invoked: " + accountNumber);
         Account account = accountService.findByAccountNumber(accountNumber);
-        logger.info("accounts-service byNumber() found: " + account);
+        log.info("accounts-service byNumber() found: " + account);
 
         if (account == null)
             throw new AccountNotFoundException(accountNumber);
@@ -57,11 +55,11 @@ public class AccountsController {
      */
     @GetMapping("/accounts")
     public List<Account> getAccounts() {
-        logger.info("accounts-service is invoked grtAccounts(): "
+        log.info("accounts-service is invoked grtAccounts(): "
                 + accountService.getClass().getName() + " for "
         );
         List<Account> accounts = accountService.findAll();
-        logger.info("accounts-service byOwner() found: " + accounts);
+        log.info("accounts-service byOwner() found: " + accounts);
         if (accounts == null || accounts.size() == 0)
             throw new AccountNotFoundException("");
         else {
