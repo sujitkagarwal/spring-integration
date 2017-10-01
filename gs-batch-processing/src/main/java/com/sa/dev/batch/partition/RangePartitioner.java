@@ -29,7 +29,7 @@ public class RangePartitioner  implements Partitioner {
         long batchSize=0L;
 
         try{
-            numberOfLine=Files.lines( Paths.get("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/csv/sample-data3.csv")).count();
+            numberOfLine=Files.lines( Paths.get("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/csv/sample-data-3.csv")).count();
             log.info("number of lines" + numberOfLine);
             batchSize=numberOfLine/gridSize;
            toId=batchSize;
@@ -46,7 +46,7 @@ public class RangePartitioner  implements Partitioner {
                 value.putLong("fromId", fromId);
                 value.putLong("toId", toId);
               //  value.putLong("batchSize", batchSize);
-                value.put(DEFAULT_KEY_NAME,"/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/csv/sample-data3.csv");
+                value.put(DEFAULT_KEY_NAME,"/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/csv/sample-data-3.csv");
                 // give each thread a name, thread 1,2,3
                // value.putString("name", "Thread" + i);
 

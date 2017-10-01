@@ -24,7 +24,7 @@ public class TestGson {
 
     public void readStream() {
         try {
-            InputStream inputStream = new FileInputStream("C:/tmp//workspace/gs-batch-processing/src/test/resources/json/user1.json");
+            InputStream inputStream = new FileInputStream("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/json/user1.json");
             JsonReader   reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
             //
             JsonToken nextToken=null;
@@ -54,7 +54,7 @@ public class TestGson {
 
     public void readParserStream() {
         try {
-            InputStream inputStream = new FileInputStream("C:/tmp//workspace/gs-batch-processing/src/test/resources/json/user1.json");
+            InputStream inputStream = new FileInputStream("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/json/user1.json");
         //    JsonReader   reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
             JsonParser parser = new JsonParser();
             JsonElement jsonTree = parser.parse(new InputStreamReader(inputStream, "UTF-8"));

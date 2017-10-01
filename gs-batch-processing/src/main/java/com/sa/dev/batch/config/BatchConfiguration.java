@@ -81,6 +81,7 @@ public class BatchConfiguration {
     }
 
     @Bean
+    @StepScope
     public PersonItemProcessor processor() {
         return new PersonItemProcessor();
     }
@@ -338,10 +339,11 @@ public class BatchConfiguration {
     @Bean(name = "slaveStep")
     public Step slaveStep(@Qualifier("partitionUserReader") FlatFileItemReader<Person> reader, JdbcBatchItemWriter<Person> itemWriter) {
         return stepBuilderFactory.get("slaveStep")
-                .<Person, Person>chunk(10)
+                .<Person, Person>chunk(2)
                 .reader(reader)
                 .processor(processor())
                 .writer(itemWriter)
+                .taskExecutor(taskExecutorStep())
                 .build();
     }
 
@@ -369,9 +371,20 @@ public class BatchConfiguration {
 
 
     @Bean
+    public TaskExecutor taskExecutorStep() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setMaxPoolSize(10);
+        taskExecutor.setCorePoolSize(5);
+        taskExecutor.setQueueCapacity(10);
+        taskExecutor.afterPropertiesSet();
+        return taskExecutor;
+    }
+
+
+    @Bean
     public MultiFileResourcePartitioner partitioner() {
         MultiFileResourcePartitioner partitioner = new MultiFileResourcePartitioner();
-        partitioner.setInboundDir("C:/tmp//workspace/gs-batch-processing/src/test/resources/csv/");
+        partitioner.setInboundDir("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/csv");
         return partitioner;
     }
 

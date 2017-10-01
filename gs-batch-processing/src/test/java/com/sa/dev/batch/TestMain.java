@@ -38,7 +38,7 @@ public class TestMain {
             ObjectMapper  mapper=new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             JsonFactory f = new MappingJsonFactory();
-            JsonParser jp = f.createParser(new File("C:/tmp//workspace/gs-batch-processing/src/test/resources/json/user1.json"));
+            JsonParser jp = f.createParser(new File("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/json/user2.json"));
             JsonToken current;
             current = jp.nextToken();
             if (current == JsonToken.START_ARRAY) {

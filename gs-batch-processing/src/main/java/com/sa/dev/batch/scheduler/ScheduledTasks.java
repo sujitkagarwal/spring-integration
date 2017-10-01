@@ -6,9 +6,6 @@ import com.sa.dev.batch.util.ListFilesUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,7 +14,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,7 +21,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by qu04jl on 4-9-2017.
@@ -53,7 +48,7 @@ public class ScheduledTasks {
     public void reportCurrentTime() {
         log.info("The time is now {}", dateFormat.format(new Date()));
         try {
-            File files[] = ListFilesUtil.listFilesAndFolders("C:\\tmp\\workspace\\gs-batch-processing\\src\\test\\resources\\TXT");
+            File files[] = ListFilesUtil.listFilesAndFolders("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/json/");
             log.info("Number of files" + files.length);
             for (File file : files) {
                 log.info("file Name::" + file.getPath());

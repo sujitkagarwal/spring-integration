@@ -57,11 +57,11 @@ public class BatchTest {
 
     @Test
     public void testBatch() throws Exception {
-        //  File file=new File("C:/tmp//workspace/gs-batch-processing/src/test/resources/file/sample-data_1.csv");
+        //  File file=new File("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/file/sample-data-1.csv");
         final JobParameters jobParameters =
                 new JobParametersBuilder()
                         .addLong("time", System.currentTimeMillis())
-                        .addString("fileName", "C:/tmp//workspace/gs-batch-processing/src/test/resources/csv/sample-data_1.csv")
+                        .addString("fileName", "/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/csv/sample-data-1.csv")
                         .toJobParameters();
         System.out.println("job name :: " + job.getName());
         jobLauncher.run(job, jobParameters);
@@ -69,11 +69,11 @@ public class BatchTest {
 
     @Test
     public void testCustomBatch() throws Exception {
-        //  File file=new File("C:/tmp//workspace/gs-batch-processing/src/test/resources/file/sample-data_1.csv");
+        //  File file=new File("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/file/sample-data-1.csv");
         final JobParameters jobParameters =
                 new JobParametersBuilder()
                         .addLong("time", System.currentTimeMillis())
-                        .addString("fileName", "C:/tmp//workspace/gs-batch-processing/src/test/resources/TXT/filewithfourrows.txt")
+                        .addString("fileName", "/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/TXT/filewithfourrows.txt")
                         .toJobParameters();
         System.out.println("job name :: " + customJob.getName());
         jobLauncher.run(customJob, jobParameters);
@@ -82,11 +82,11 @@ public class BatchTest {
 
     @Test
     public void testDefaultBatch() throws Exception {
-        //  File file=new File("C:/tmp//workspace/gs-batch-processing/src/test/resources/file/sample-data_1.csv");
+        //  File file=new File("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/file/sample-data-1.csv");
         final JobParameters jobParameters =
                 new JobParametersBuilder()
                         .addLong("time", System.currentTimeMillis())
-                        .addString("fileName", "C:/tmp//workspace/gs-batch-processing/src/test/resources/TXT/filewithfourrows.txt")
+                        .addString("fileName", "/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/TXT/filewithfourrows.txt")
                         .toJobParameters();
         System.out.println("job name :: " + defaultJob.getName());
         jobLauncher.run(defaultJob, jobParameters);
@@ -94,7 +94,7 @@ public class BatchTest {
 
     @Test
     public void testJsonBatch() throws Exception {
-        //  File file=new File("C:/tmp//workspace/gs-batch-processing/src/test/resources/file/sample-data_1.csv");
+        //  File file=new File("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/file/sample-data-1.csv");
 
         FileJob fileJob = new FileJob();
         fileJob.setName("person2");
@@ -103,7 +103,7 @@ public class BatchTest {
         JobParameters jobParameters =
                 new JobParametersBuilder()
                         .addLong("time", System.currentTimeMillis())
-                        .addString("fileName", "C:/tmp//workspace/gs-batch-processing/src/test/resources/json/person1.json")
+                        .addString("fileName", "/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/json/person1.json")
                         .addString("objectType", "person2")
                         .toJobParameters();
         System.out.println("job name :: " + jsonJob.getName());
@@ -115,7 +115,7 @@ public class BatchTest {
         jobParameters =
                 new JobParametersBuilder()
                         .addLong("time", System.currentTimeMillis())
-                        .addString("fileName", "C:/tmp//workspace/gs-batch-processing/src/test/resources/json/person2.json")
+                        .addString("fileName", "/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/json/person2.json")
                         .addString("objectType", "person1")
                         .toJobParameters();
         jobLauncher.run(jsonJob, jobParameters);
@@ -127,7 +127,7 @@ public class BatchTest {
         jobParameters =
                 new JobParametersBuilder()
                         .addLong("time", System.currentTimeMillis())
-                        .addString("fileName", "C:/tmp//workspace/gs-batch-processing/src/test/resources/json/user1.json")
+                        .addString("fileName", "/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/json/user1.json")
                         .addString("objectType", "user1")
                         .toJobParameters();
         jobLauncher.run(jsonJob, jobParameters);
