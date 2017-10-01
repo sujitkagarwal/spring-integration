@@ -26,12 +26,12 @@ import java.io.IOException;
 @Slf4j
 public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessingFilter {
     private final AuthenticationFailureHandler failureHandler;
-    private final String tokenHeader ;
+    private final String tokenHeader;
 
-    public JwtAuthenticationTokenFilter(AuthenticationFailureHandler authenticationFailureHandler, RequestMatcher requestMatcher,final String  tokenHeader) {
+    public JwtAuthenticationTokenFilter(AuthenticationFailureHandler authenticationFailureHandler, RequestMatcher requestMatcher, final String tokenHeader) {
         super(requestMatcher);
         this.failureHandler = authenticationFailureHandler;
-        this.tokenHeader=tokenHeader;
+        this.tokenHeader = tokenHeader;
 
     }
 

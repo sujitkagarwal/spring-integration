@@ -39,7 +39,7 @@ public class JwtTokenUtil implements Serializable {
     @Value("${com.sa.dev.micro.secret}")
     private String secret;
 
-    @Value("${com.sa.dev.micro.expiration}" )
+    @Value("${com.sa.dev.micro.expiration}")
     private String expiration;
 
 
@@ -86,7 +86,7 @@ public class JwtTokenUtil implements Serializable {
     private String doGenerateToken(Map<String, Object> claims) {
         final Date createdDate = (Date) claims.get(CLAIM_KEY_CREATED);
         final Date expirationDate = new Date(createdDate.getTime() + Long.parseLong(expiration) * 1000);
-         return Jwts.builder()
+        return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS512, secret)

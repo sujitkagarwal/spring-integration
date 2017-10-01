@@ -21,8 +21,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-      @Autowired
-      private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @Override
     public boolean supports(Class<?> authentication) {
@@ -30,21 +30,21 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
     }
 
 
-   /* @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
-        String token = jwtAuthenticationToken.getToken();
-        JwtUser parsedUser=null;
-        try {
-            parsedUser = jwtTokenUtil.parseToken(token);
-        }catch (InvalidTokenException e) {
-            throw new JwtTokenMalformedException(e.getMessage());
-        }
-        jwtAuthenticationToken.setAuthenticated(true);
-        return jwtAuthenticationToken;
-    }
-*/
-     @Override
+    /* @Override
+     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
+         String token = jwtAuthenticationToken.getToken();
+         JwtUser parsedUser=null;
+         try {
+             parsedUser = jwtTokenUtil.parseToken(token);
+         }catch (InvalidTokenException e) {
+             throw new JwtTokenMalformedException(e.getMessage());
+         }
+         jwtAuthenticationToken.setAuthenticated(true);
+         return jwtAuthenticationToken;
+     }
+ */
+    @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
     }
 
@@ -52,10 +52,10 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
         String token = jwtAuthenticationToken.getToken();
-        JwtUser parsedUser=null;
+        JwtUser parsedUser = null;
         try {
             parsedUser = jwtTokenUtil.parseToken(token);
-        }catch (InvalidTokenException e) {
+        } catch (InvalidTokenException e) {
             throw new JwtTokenMalformedException(e.getMessage());
         }
         return parsedUser;

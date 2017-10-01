@@ -4,6 +4,7 @@ import org.springframework.security.core.AuthenticationException;
 
 /**
  * Thrown when token cannot be parsed
+ *
  * @author sujit agarwal
  */
 public class JwtTokenMalformedException extends AuthenticationException {
