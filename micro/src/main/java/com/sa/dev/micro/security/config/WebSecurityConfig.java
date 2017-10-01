@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final String[] pathToSkips = {"/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**"};
 
     @Value("${com.sa.dev.micro.header}")
-    private  String tokenHeader ;
+    private String tokenHeader;
 
     @Autowired
     private JwtAuthenticationProvider jwtAuthenticationProvider;
@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtAuthenticationTokenFilter authenticationTokenFilter() throws Exception {
         List<String> pathtoSkipList = Arrays.asList(pathToSkips);
         SkipPathRequestMatcher skipPathRequestMatcher = new SkipPathRequestMatcher(pathtoSkipList);
-        JwtAuthenticationTokenFilter authenticationTokenFilter = new JwtAuthenticationTokenFilter(jwtAuthenticationFailureHandler, skipPathRequestMatcher,tokenHeader);
+        JwtAuthenticationTokenFilter authenticationTokenFilter = new JwtAuthenticationTokenFilter(jwtAuthenticationFailureHandler, skipPathRequestMatcher, tokenHeader);
         // authenticationTokenFilter.setAuthenticationManager(authenticationManager());
         authenticationTokenFilter.setAuthenticationManager(authenticationManager);
         return authenticationTokenFilter;
