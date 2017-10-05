@@ -1,5 +1,6 @@
 package com.sa.dev.batch.config;
 
+import com.sa.dev.batch.command.AppCommand;
 import com.sa.dev.batch.entity.OverstaptabelRow;
 import com.sa.dev.batch.entity.Person;
 import com.sa.dev.batch.json.*;
@@ -13,6 +14,7 @@ import com.sa.dev.batch.partition.MultiFileResourcePartitioner;
 import com.sa.dev.batch.partition.RangePartitioner;
 import com.sa.dev.batch.processor.OverstaptabelRowProcessor;
 import com.sa.dev.batch.processor.PersonItemProcessor;
+import com.sa.dev.batch.processor.PersonProcessor;
 import com.sa.dev.batch.skip.PersonVerificationSkipper;
 import com.sa.dev.batch.token.OverstaptabelHeaderTokenizer;
 import com.sa.dev.batch.token.OverstaptabelRecordTokenizer;
@@ -59,6 +61,7 @@ import java.util.Map;
 @Slf4j
 public class BatchConfiguration {
 
+
     @Autowired
     ResourcePatternResolver resoursePatternResolver;
 
@@ -81,7 +84,6 @@ public class BatchConfiguration {
     }
 
     @Bean
-    @StepScope
     public PersonItemProcessor processor() {
         return new PersonItemProcessor();
     }
@@ -329,19 +331,28 @@ public class BatchConfiguration {
     @Bean
     public Step partitionStep() {
         return stepBuilderFactory.get("partitionStep")
-                .partitioner("partitioner", partitioner())
+                .partitioner("partitioner", partitioner(null))
                 .step(slaveStep(null, null))
                 .taskExecutor(taskExecutor())
                 //  .gridSize(10)
                 .build();
     }
 
+
+
+    @Bean
+    @StepScope
+    public PersonProcessor processorPerson() {
+        return new PersonProcessor();
+    }
+
+
     @Bean(name = "slaveStep")
     public Step slaveStep(@Qualifier("partitionUserReader") FlatFileItemReader<Person> reader, JdbcBatchItemWriter<Person> itemWriter) {
         return stepBuilderFactory.get("slaveStep")
                 .<Person, Person>chunk(2)
                 .reader(reader)
-                .processor(processor())
+                .processor(processorPerson())
                 .writer(itemWriter)
                 .taskExecutor(taskExecutorStep())
                 .build();
@@ -382,9 +393,10 @@ public class BatchConfiguration {
 
 
     @Bean
-    public MultiFileResourcePartitioner partitioner() {
+    public MultiFileResourcePartitioner partitioner(AppCommand appCommand ) {
         MultiFileResourcePartitioner partitioner = new MultiFileResourcePartitioner();
         partitioner.setInboundDir("/Users/sujitagarwal/workspace_micro/gs-batch-processing/src/test/resources/csv");
+        partitioner.setAppCommand(appCommand);
         return partitioner;
     }
 
@@ -449,6 +461,7 @@ public class BatchConfiguration {
         taskExecutor.afterPropertiesSet();
         return taskExecutor;
     }
+
 
 
 }

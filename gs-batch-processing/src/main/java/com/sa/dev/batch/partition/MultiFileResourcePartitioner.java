@@ -1,5 +1,7 @@
 package com.sa.dev.batch.partition;
 
+
+import com.sa.dev.batch.command.AppCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.partition.support.Partitioner;
 import org.springframework.batch.item.ExecutionContext;
@@ -8,8 +10,6 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by QU04JL on 19-9-2017.
@@ -18,7 +18,9 @@ import java.util.concurrent.Executors;
 public class MultiFileResourcePartitioner implements Partitioner {
 
     private static final String DEFAULT_KEY_NAME = "fileName";
-    private final ExecutorService threadpool = Executors.newFixedThreadPool(4);
+
+     //private final ExecutorService threadpool = Executors.newFixedThreadPool(4);
+    private AppCommand appCommand;
 
 
     private String inboundDir;
@@ -38,7 +40,8 @@ public class MultiFileResourcePartitioner implements Partitioner {
             for (File file : files) {
                 ExecutionContext context = new ExecutionContext();
                 context.put(DEFAULT_KEY_NAME, file.getAbsolutePath());
-             //   context.put("futureObject",threadpool.submit(new UserCommand(file.getName())));
+            //  context.put("futureObject",threadpool.submit(new UserCommand(file.getName())))
+                context.put("futureObject",appCommand.getUserCommand(file.getName()));
                 partitionMap.put(file.getName(), context);
 
             }
@@ -46,12 +49,14 @@ public class MultiFileResourcePartitioner implements Partitioner {
         return partitionMap;
     }
 
-    public String getInboundDir() {
-        return inboundDir;
-    }
+
 
     public void setInboundDir(String inboundDir) {
         this.inboundDir = inboundDir;
+    }
+
+    public void setAppCommand(AppCommand appCommand) {
+        this.appCommand = appCommand;
     }
 
 /*
@@ -70,17 +75,6 @@ public class MultiFileResourcePartitioner implements Partitioner {
             return user;
         }
     }*/
-
-   /* @HystrixCommand(fallbackMethod = "findAllFallback", commandProperties = {
-            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "20000"),
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "10"),
-            @HystrixProperty(name = "metrics.rollingPercentile.timeInMilliseconds", value = "720000"),
-            @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "720000"),
-            //  @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "72000")
-
-    })*/
-
 
 
 }
